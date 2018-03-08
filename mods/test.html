@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,35 +19,38 @@
 
     <!-- These get loaded asynchronously and get executed when the browser is "idling': -->
     <script defer type="application/javascript" src="./scripts/logSelfNoMod.js"></script>
-        <!-- The order is unpredicted -->
+    <!-- The order is unpredicted -->
     <script type="module" src="./logSelf.js"></script>
-    <script type="module" src="./logSelf.js"></script> <!-- A module is loaded only once, so this won't change anything -->
+    <script type="module" src="./logSelf.js"></script>
+    <!-- A module is loaded only once, so this won't change anything -->
 
     <!-- These get loaded asynchronously and get executed right away: -->
     <script async type="application/javascript" src="./scripts/selfLogNoMod.js"></script>
     <!-- A script is loaded as many times it's added, so this will re-run the code: -->
     <!-- <script async type="application/javascript" src="./scripts/selfLogNoMod.js"></script> -->
-        <!-- The order is unpredicted -->
+    <!-- The order is unpredicted -->
     <script async type="module" src="./selfLog.js"></script>
 
-    <script type="module">
-        //If this page(test.html) is served through https, 'mixed content'-error will shows up:
-        // import utils from "http://hospodarets.com/demos/native-javascript-modules/js/utils.js";
-        // utils.alert("An alert from a public module");
+    <!-- <script type="module">
+        // If this page(test.html) is served through https, 'mixed content'-error will shows up:
+        import utils from "http://hospodarets.com/demos/native-javascript-modules/js/utils.js";
+        utils.alert("An alert from a public module");
 
-        // import vueUtils from "https://localhost:5500/vueUtils.js";
-        // vueUtils.utilify("Just got loaded a module from public secured file");
-        // import vueUtils from "http://localhost:5500/vueUtils.js";
-        // vueUtils.utilify("Just got loaded a module from public file");
+        import vueUtils from "https://localhost:5500/vueUtils.js";
+        vueUtils.utilify("Just got loaded a module from public secured file");
+        import vueUtils from "http://localhost:5500/vueUtils.js";
+        vueUtils.utilify("Just got loaded a module from public file");
 
-        // import fbd from "https://dasbo-htpc:5500/fbd.js"
-        // fbd.addTextToBody("Content from a public secured module");
-        // import fbd from "http://dasbo-htpc:5500/fbd.js"
-        // fbd.addTextToBody("Content from a public module");
-    </script>
+        import fbd from "https://localhost:5500/fbd.js"
+        fbd.addTextToBody("Content from a public secured module");
+        import fbd from "http://localhost:5500/fbd.js"
+        fbd.addTextToBody("Content from a public module");
+    </script> -->
 
 </head>
+
 <body>
     <button id="btn1">Test inline module!</button>
 </body>
+
 </html>

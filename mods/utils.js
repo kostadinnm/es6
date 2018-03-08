@@ -8,5 +8,5 @@ export default {
     log: function(msg) {
         console.log(utilsPrefix + ": " + msg);
     }
-}
+};
 const utilsPrefix = "My utils";

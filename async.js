@@ -5,7 +5,6 @@
 // ];
 let arr = [1, 2, 3];
 
-
 // //'let' adds locality of the variable
 // for (let i = 0 ; i < 3 ; i++) {
 //     setTimeout(function () {

@@ -29,10 +29,9 @@
 //     console.log("required: " + required + ", optional: " + optional);
 // }
 
-
-function test1({title: englishTitle} = {title: 'Scratchpad'}) {
+function test1({ title: englishTitle } = { title: "Scratchpad" }) {
     return "";
 }
-function test({req:required, opt:optional=0} = {req:1, opt:1}) {
+function test({ req: required, opt: optional = 0 } = { req: 1, opt: 1 }) {
     console.log("required: " + required + ", optional: " + optional);
 }

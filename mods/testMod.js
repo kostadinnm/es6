@@ -1,6 +1,8 @@
 import utils from "./utils.js";
 
-utils.log("If you can read this, then JavaScript modules work in this browser...");
+utils.log(
+    "If you can read this, then JavaScript modules work in this browser..."
+);
 
 //
 // access to 'this' and 'window':
@@ -13,21 +15,27 @@ console.log("'window' is " + (window === undefined ? "NOT " : "") + "present");
 
 function testF() {
     //NOT present:
-    console.log("In function, 'this' is " + (this === undefined ? "NOT " : "") + "present");
+    console.log(
+        "In function, 'this' is " +
+            (this === undefined ? "NOT " : "") +
+            "present"
+    );
 }
 testF();
 setTimeout(function() {
     //PRESENT:
-    console.log("In GLOBAL function, 'this' is " + (this === undefined ? "NOT " : "") + "present");
+    console.log(
+        "In GLOBAL function, 'this' is " +
+            (this === undefined ? "NOT " : "") +
+            "present"
+    );
 }, 0);
-
 
 //
 // deletion of variables:
 //
 //This leads to error:
 //let x = ""; delete x;
-
 
 //
 // access to 'this' in objects:
@@ -56,7 +64,7 @@ function Person(age) {
 let persons = [];
 
 function addRandomPerson() {
-    persons.push(new Person(Math.floor((Math.random() * 100) + 1)));
+    persons.push(new Person(Math.floor(Math.random() * 100 + 1)));
 }
 
 addRandomPerson();
