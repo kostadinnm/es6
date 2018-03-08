@@ -1,0 +1,8 @@
+{
+    "devDependencies": {
+        "eslint": "^4.17.0",
+        "eslint-plugin-myplugin": "./myeslint",
+        "eslint-plugin-promise": "^3.6.0"
+    },
+    "license": "UNLICENSED"
+}

@@ -1,0 +1,42 @@
+<html>
+<title>ES6 playground</title>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="demo.css">
+</head>
+
+<body>
+    <video id="myVideo" width="960" heigh="540" preload autoplay loop controls crossorigin="anonymous">
+        <!-- vlc transcode example:
+         transcode{vcodec=VP80,vb=2000,scale=0,channels=2,samplerate=44100}:std{access=http{mime=video/webm},mux=webm,dst=:8080/cam1}
+         192.168.1.158 - android phone running the 'rtsp camera server' app
+        vlc -vvv rtsp://192.168.1.158:5554/camera :network-caching=0 :sout='#transcode{vcodec=VP80,vb=2000,acodec=vorb,ab=128,channels=2,samplerate=44100}:duplicate{dst=http{mux=webm,dst=:8080/vlcStream.webm},dst=display}' :sout-all :sout-keep -->
+
+        <!-- dasbo-htpc - pc with better hardware for transcoding -->
+        <source src="http://dasbo-htpc:8080/vlcStream.webm" />
+    </video>
+    <div class="separable">
+        <button onclick="logThis()">Log this</button>
+        <button onclick="obj.logSelfF(); obj.logSelfF1();">Log object</button>
+        <button onclick="obj.logSelfA()">Log object dummy</button>
+        <button onclick="addRandomPerson()">Add person</button>
+        <button id="btn1">Check click</button>
+        <button id="btn2">Check click dummy</button>
+        <button id="btn3" onclick="obj1.changeAppearance()">Change apperance</button>
+        <button id="btn4" onclick="obj1.logThis(); obj1.changeAppearanceDummy();">Change apperance dummy</button>
+    </div>
+    <div class="separable">
+        <button onclick="announcePlayer('Jakub', 'Voracek')">Announce Jakub</button>
+        <button onclick="announcePlayer('Harry', 'Watson', 'Moose', 'Toronto Granites')">Announce Harry</button>
+        <button onclick="announcePlayer('Wayne', 'Gretzky', undefined, 'New York Rangers')">Announce Wayne</button>
+    </div>
+    <div class="separable">
+        <!-- TODO: add interactive examples on defaults & destructuring, '...', object literals, template literals -->
+        <div id="div1">
+        </div>
+    </div>
+</body>
+<script src="demo.js"></script>
+
+</html>
