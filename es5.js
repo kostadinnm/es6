@@ -1,6 +1,6 @@
 function sumES5() {
     //'arguments' is an iterable symbol - not an array:
-    // let argsArray = Array.prototype.slice.call(arguments);
+    // var argsArray = Array.prototype.slice.call(arguments);
     // return argsArray.reduce(function (sum, current) {
     //     return sum + current;
     // }, 0);
