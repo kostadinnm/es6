@@ -6,4 +6,4 @@ function sumES5() {
     }, 0);
 }
 var s5 = sumES5(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-alert("EcmaScript5 sum:" + s5);
+console.log("EcmaScript5 sum:" + s5);
