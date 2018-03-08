@@ -6,3 +6,4 @@ node_modules
 .eslintrc.json
 .jslintrc
 yarn.lock
+package.json
