@@ -1,4 +1,3 @@
-
 // const profiles = [
 //     {id: 0, avatarUrl: 'images/demo.jpg'},
 //     {id: 1, avatarUrl: 'images/butterfly.jpg'},
@@ -22,8 +21,8 @@ let arr = [1, 2, 3];
 // }// Output: 1 2 3
 
 //best is using 'forEach' for looping:
-arr.forEach(function (i) {
-    setTimeout(function () {
+arr.forEach(function(i) {
+    setTimeout(function() {
         console.log(i);
     }, 0);
 }); // Output: 1 2 3

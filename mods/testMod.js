@@ -10,12 +10,13 @@ utils.log("If you can read this, then JavaScript modules work in this browser...
 console.log("'this' is " + (this === undefined ? "NOT " : "") + "present");
 //PRESENT:
 console.log("'window' is " + (window === undefined ? "NOT " : "") + "present");
+
 function testF() {
     //NOT present:
     console.log("In function, 'this' is " + (this === undefined ? "NOT " : "") + "present");
 }
 testF();
-setTimeout(function () {
+setTimeout(function() {
     //PRESENT:
     console.log("In GLOBAL function, 'this' is " + (this === undefined ? "NOT " : "") + "present");
 }, 0);
@@ -34,7 +35,7 @@ setTimeout(function () {
 
 //in an object:
 let obj = {
-    logSelfF: function () {
+    logSelfF: function() {
         //'this' is the obj in:
         console.log("in object function-method this is: " + this);
     },
@@ -53,6 +54,7 @@ function Person(age) {
     this.age = age;
 }
 let persons = [];
+
 function addRandomPerson() {
     persons.push(new Person(Math.floor((Math.random() * 100) + 1)));
 }
@@ -63,12 +65,12 @@ addRandomPerson();
 
 // Some additional points:
 // you can use absolute URLs for the module scripts and for the import statements
-    //i.e. import utils from "google.com/utils.js" should work ok
+//i.e. import utils from "google.com/utils.js" should work ok
 // CORS rules are applied for the modules loaded from other origins
-    //i.e. if Access-Control-Allow-Origin header is set to "*" the module is available to all,
-    //otherwise only within the same domain or the specified origin(s)
+//i.e. if Access-Control-Allow-Origin header is set to "*" the module is available to all,
+//otherwise only within the same domain or the specified origin(s)
 // Mixed content (HTTP / HTTPS) rules are applied for the modules as well
-    //i.e. cross-sourcing in this regards will
-    
-// TO GENERATE THESE USE in PowerShell(after installing openssl from http://slproweb.com/products/Win32OpenSSL.html):
-    // .\openssl.exe req -x509 -days 365 -newkey rsa:2048 -keyout my_key.key -out my_cert.cert -config ".\openssl.cfg"
+//i.e. cross-sourcing in this regards will
+
+// TO GENERATE THESE USE in PowerShell(credits: http://slproweb.com/products/Win32OpenSSL.html):
+// .\openssl.exe req -x509 -days 365 -newkey rsa:2048 -keyout my_key.key -out my_cert.cert -config ".\openssl.cfg"
