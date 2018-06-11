@@ -2,7 +2,7 @@ export function myUtil() {
     return "my util";
 }
 
-// todo: return value, not lambda on arity overflow(just like normal function)
+// todo: return value, not lambda on arity-overflow(like lodash's implementation)
 function curry(f, argsHead = []) {
     return function(...argsTail) {
         return (function(args) {
@@ -11,6 +11,7 @@ function curry(f, argsHead = []) {
     };
 }
 
+// accumulator-like function(todo: expose synonym - accum(fn, inVal, iterable))
 function reduce(reducer, initial, arr) {
     // shared stuff
     let acc = initial;
@@ -21,4 +22,59 @@ function reduce(reducer, initial, arr) {
     return acc;
 }
 
-export default Object.assign(myUtil, { reduce, curry });
+// pointed functor(credits: https://medium.com/@dmitri145/to-functor-or-not-to-functor-43c46c72145c):
+function pointedFunctor(value) {
+    return {
+        //looks like specifying a constructor takes precedence in the range factory(pointedFunctorRange)
+        constructor: pointedFunctor,
+        map(fn) {
+            return pointedFunctor(fn(value));
+        },
+        valueOf() {
+            return value;
+        },
+        toString() {
+            return `pointedFunctr(${value})`;
+        },
+        inspect() {
+            return `pointedFunctr(${value})`;
+        },
+        [Symbol.iterator]() {
+            //todo: make this smarter:
+            let step = 0;
+            const iterator = {
+                next() {
+                    if (step <= 1) {
+                        step++;
+                    }
+                    switch (step) {
+                        case 1:
+                            return { value: value, done: false };
+                        default:
+                            return { value: undefined, done: true };
+                    }
+                }
+            };
+            return iterator;
+        }
+    };
+}
+// todo: figure out how this gets the static-notion(instance functions get preference)
+Object.assign(pointedFunctor, {
+    toString() {
+        return "pointedFunctr";
+    },
+    is(x) {
+        return typeof x.map === "function";
+    }
+});
+
+// todo: replace 'end' with 'length' or 'size'
+function constructRange(constructableStart, end) {
+    return Array.from({ length: end - constructableStart + 1 }, function(x, i) {
+        // return pointedFunctor(i + start);
+        return constructableStart.constructor(i + constructableStart);
+    });
+}
+
+export default Object.assign(myUtil, { reduce, curry, pointedFunctor, constructRange });

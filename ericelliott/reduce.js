@@ -1,4 +1,3 @@
-
 import { myUtil } from "./util.js";
 
 console.log(
@@ -66,5 +65,28 @@ const pipe = function(...fns) {
         );
     };
 };
-const add5ThenMult2 = pipe(add5, mult2);
+const add5ThenMult2 = pipe(
+    add5,
+    mult2
+);
 console.log(add5ThenMult2(3));
+
+// fb's redux reducer
+const ADD_VALUE = "ADD_VALUE";
+// reducer(state: Any, action: { type: String, payload: Any}) => newState: Any
+const summingReducer = function(state = 0, action = {}) {
+    const { type, payload } = action;
+    switch (type) {
+        case ADD_VALUE:
+            return state + payload.value;
+            break;
+        default:
+            return state;
+    }
+};
+const actions = [
+    { type: "ADD_VALUE", payload: { value: 1 } },
+    { type: "ADD_VALUE", payload: { value: 2 } },
+    { type: "ADD_VALUE", payload: { value: 3 } }
+];
+console.log(myUtil.reduce(summingReducer, 0, actions));
