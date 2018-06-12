@@ -82,3 +82,30 @@ console.log(myUtil.pointedFunctor.is(10));
 //array has a map-function, thus it's a pointed functor as well
 console.log(myUtil.pointedFunctor.is([10]));
 console.log(myUtil.pointedFunctor.is(joinableTen));
+
+function exists(x) {
+    return x.valueOf() !== undefined && x.valueOf() !== null;
+}
+//conditional chaining
+const ifExists = function(x) {
+    return {
+        map(fn) {
+            return exists(x) ? x.map(fn) : x;
+        }
+    };
+};
+console.log(ifExists(myUtil.pointedFunctor(undefined)).map(addOne));
+console.log(ifExists(myUtil.pointedFunctor(null)).map(double));
+console.log(
+    ifExists(myUtil.pointedFunctor(11))
+        .map(addOne)
+        .map(double)
+);
+//mapping-functions' generator
+const mapGen = myUtil.curry(function(fn, functr) {
+    return functr.map(fn);
+});
+const toPlusOne = mapGen(addOne);
+console.log(toPlusOne(myUtil.pointedFunctor(12)));
+const toDouble = mapGen(double);
+console.log(toDouble(myUtil.pointedFunctor(13)));
