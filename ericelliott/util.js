@@ -59,7 +59,7 @@ function pointedFunctor(value) {
         }
     };
 }
-// todo: figure out how this gets the static-notion(instance functions get preference)
+// todo: figure out how this gets the static-notion(instance functions get precedence)
 Object.assign(pointedFunctor, {
     toString() {
         return "pointedFunctr";
@@ -76,5 +76,16 @@ function constructRange(constructableStart, end) {
         return constructableStart.constructor(i + constructableStart);
     });
 }
+function pipe(...fns) {
+    return function(x) {
+        return myUtil.reduce(
+            function(acc, f) {
+                return f(acc);
+            },
+            x,
+            fns
+        );
+    };
+}
 
-export default Object.assign(myUtil, { reduce, curry, pointedFunctor, constructRange });
+export default Object.assign(myUtil, { reduce, curry, pointedFunctor, constructRange, pipe });

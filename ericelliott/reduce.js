@@ -54,18 +54,7 @@ const mult2ThenAdd5 = compose(
 );
 console.log(mult2ThenAdd5(3));
 
-const pipe = function(...fns) {
-    return function(x) {
-        return myUtil.reduce(
-            function(acc, f) {
-                return f(acc);
-            },
-            x,
-            fns
-        );
-    };
-};
-const add5ThenMult2 = pipe(
+const add5ThenMult2 = myUtil.pipe(
     add5,
     mult2
 );
