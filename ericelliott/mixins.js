@@ -1,4 +1,6 @@
 import { myUtil } from "./util.js";
+import { myConfer } from "./utils/confer.js";
+import { myLogger } from "./utils/logger.js";
 
 const chocolate = {
     hasChocolate() {
@@ -35,7 +37,7 @@ function child(spec) {
     };
     return that;
 }
-const c = child({ name: "a functional object" });
+const c = child({ name: "a (not-so-flexible) functional object" });
 console.log(c.sayHello());
 
 //functional mixin
@@ -69,12 +71,29 @@ const quacking = myUtil.curry(function(quack, o) {
 const quacker = quacking("Quack!")({});
 console.log(quacker.quack());
 const duck = function(quack) {
-    return quacking(quack)(flyable({}));
+    // return quacking(quack)(flyable({}));
+    return flyable(quacking(quack, {}));
 };
 const d1 = duck("Quack!");
 console.log(d1.fly().quack());
-const createDuck = function (quack) {
-    return myUtil.pipe(flyable, quacking(quack))({});
+const createDuck = function(quack) {
+    return myUtil.pipe(
+        flyable,
+        quacking(quack)
+    )({});
 };
 const d2 = createDuck("Quack! Quack!");
 console.log(d2.fly().quack());
+// todo: explore https://github.com/stampit-org/stamp-specification(sharing and reusing composable factory functions)
+
+// const createConfig = function({ initialConfig, logger }) {
+//     return myUtil.pipe(
+//         myLogger.withLogging(logger),
+//         myConfer.withConfig(initialConfig)
+//     )({});
+// };
+// const initialConfig = { host: "hokallost" };
+// const systemLogger = console.log.bind(console);
+// const config = createConfig({ initialConfig, systemLogger });
+// console.log(config.get("host"));
+// console.log(config.get("port"));
