@@ -16,7 +16,7 @@
 console.log("in global scope this is: " + this);
 setTimeout(function () {
     //window-object:
-    console.log("in global js-funcion scope this is: " + this);
+    console.log("in global js-function scope this is: " + this);
 }, 1000);
 
 function logThis() {
