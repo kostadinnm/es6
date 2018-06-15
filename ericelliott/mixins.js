@@ -86,14 +86,34 @@ const d2 = createDuck("Quack! Quack!");
 console.log(d2.fly().quack());
 // todo: explore https://github.com/stampit-org/stamp-specification(sharing and reusing composable factory functions)
 
-// const createConfig = function({ initialConfig, logger }) {
-//     return myUtil.pipe(
-//         myLogger.withLogging(logger),
-//         myConfer.withConfig(initialConfig)
-//     )({});
-// };
-// const initialConfig = { host: "hokallost" };
-// const systemLogger = console.log.bind(console);
-// const config = createConfig({ initialConfig, systemLogger });
-// console.log(config.get("host"));
-// console.log(config.get("port"));
+// mixins' dependables
+
+const initialConfig = { host: "hokallost" };
+function systemLogger(t) {
+    console.log("System message:" + t);
+}
+
+const cc = myConfer.toConfigurableDummy(initialConfig)({});
+console.log(cc.get("host"));
+console.log(cc.get("port"));
+
+
+//implicit dependency
+const createConfigDummy = function({ config, logger }) {
+    return myUtil.pipe(
+        myLogger.toLogable(logger),
+        myConfer.toConfigurableDummy(config),
+        // myLogger.toLogable(logger) //BOOM!
+    )({});
+};
+const c1 = createConfigDummy({ config: initialConfig, logger: systemLogger });
+console.log(c1.get("host"));
+console.log(c1.get("port"));
+
+//explicit dependency
+const createConfig = function({ config, logger }, obj) {
+    return myConfer.toConfigurable({ config, logger }, obj);
+};
+const c2 = createConfig({ config: initialConfig, logger: systemLogger }, {});
+console.log(c2.get("host"));
+console.log(c2.get("port"));
