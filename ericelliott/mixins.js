@@ -122,3 +122,13 @@ const createConfigExp = function({ config, logger }, obj) {
 const c4 = createConfigExp({ config: initialConfig, logger: customLogger }, {});
 console.log(c4.get("host"));
 console.log(c4.get("port"));
+
+// pure functional connotation
+const a = Object.defineProperty({}, "a", {
+    enumerable: false,
+    value: "a"
+});
+const b = { b: "b" };
+console.log({ ...a, ...b });
+// todo: add reasonable examples of mixins that discard/maintain non-enumerable object props
+//hint: Object.assign({}, obj, ...) vs Object.assign(obj, ...)
