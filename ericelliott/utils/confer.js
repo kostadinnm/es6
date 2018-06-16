@@ -5,44 +5,28 @@ export function myConfer() {
     return "my configuration manager";
 }
 
-function toConfigurableDummy(
+function toConfigurable(
     config,
     logger = {
         log(text) {
-            console.log("DEFAULT MESSAGE: " + text);
+            console.log("Default message: " + text);
         }
     },
-    ...obj
+    ...loggable
 ) {
-    return myUtil.curry(function(c, o) {
-        return Object.assign({}, o, {
+    return myUtil.curry(function(c, l) {
+        return Object.assign({}, l, {
             get(key) {
                 return c[key] == undefined
-                //todo:
-                    ? logger.log(`Missing config key: ${key}`)//o.log(`Missing config key: ${key}`) //implicit dependency
+                    //if present, use the object's log()-function, otherwise fall back to the default logger
+                    ? (typeof l.log == "function" ? l.log : logger.log)(`Missing config key: ${key}`)
                     : c[key];
             }
         });
-    })(config)(...obj);
-}
-function toConfigurableFlat(
-    config,
-    loggable = {
-        log(text) {
-            console.log(text);
-        }
-    }
-) {
-    return Object.assign({}, config, {
-        get(key) {
-            return config[key] == undefined
-                ? loggable.log(`Missing config key: ${key}`) //implicit dependency
-                : config[key];
-        }
-    });
+    })(config)(...loggable);
 }
 
-function toConfigurable({ config, logger }, ...obj) {
+function toConfigurableExp({ config, logger }, ...obj) {
     return myUtil.pipe(
         myLogger.toLogable(logger),
         myUtil.curry(function(c, o) {
@@ -57,4 +41,4 @@ function toConfigurable({ config, logger }, ...obj) {
     )(...obj);
 }
 
-export default Object.assign(myConfer, { toConfigurableDummy, toConfigurable, toConfigurableFlat });
+export default Object.assign(myConfer, { toConfigurable, toConfigurableExp });
