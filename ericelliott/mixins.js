@@ -86,14 +86,49 @@ const d2 = createDuck("Quack! Quack!");
 console.log(d2.fly().quack());
 // todo: explore https://github.com/stampit-org/stamp-specification(sharing and reusing composable factory functions)
 
-// const createConfig = function({ initialConfig, logger }) {
-//     return myUtil.pipe(
-//         myLogger.withLogging(logger),
-//         myConfer.withConfig(initialConfig)
-//     )({});
-// };
-// const initialConfig = { host: "hokallost" };
-// const systemLogger = console.log.bind(console);
-// const config = createConfig({ initialConfig, systemLogger });
-// console.log(config.get("host"));
-// console.log(config.get("port"));
+// mixins' dependables
+const initialConfig = { host: "hokallost" };
+function customLogger(t) {
+    console.log("Custom message:" + t);
+}
+//implicit dependency
+const c1 = myConfer.toConfigurable(initialConfig)({});
+console.log(c1.get("host"));
+console.log(c1.get("port"));
+
+const createConfig = function({ config, logger }) {
+    return myUtil.pipe(
+        myLogger.toLogable(logger),
+        myConfer.toConfigurable(config)
+        // myLogger.toLogable(logger) //BOOM!
+    )({});
+};
+const c2 = createConfig({ config: initialConfig, logger: customLogger });
+console.log(c2.get("host"));
+console.log(c2.get("port"));
+
+//explicit dependency
+const c3 = myConfer.toConfigurable(initialConfig, {
+    log(t) {
+        return customLogger(t);
+    }
+})({});
+console.log(c3.get("host"));
+console.log(c3.get("port"));
+
+const createConfigExp = function({ config, logger }, obj) {
+    return myConfer.toConfigurableExp({ config, logger }, obj);
+};
+const c4 = createConfigExp({ config: initialConfig, logger: customLogger }, {});
+console.log(c4.get("host"));
+console.log(c4.get("port"));
+
+// pure functional connotation
+const a = Object.defineProperty({}, "a", {
+    enumerable: false,
+    value: "a"
+});
+const b = { b: "b" };
+console.log({ ...a, ...b });
+// todo: add reasonable examples of mixins that discard/maintain non-enumerable object props
+//hint: Object.assign({}, obj, ...) vs Object.assign(obj, ...)
