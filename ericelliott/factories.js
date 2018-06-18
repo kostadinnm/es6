@@ -69,6 +69,7 @@ const createDrone = function({ capacity = "3000mAh" }) {
         myUtil.withConstructor(createDrone)
     )({});
 };
+//the drone factory instantiating an object
 const myDrone = createDrone({ capacity: "5500mAh" });
 console.log(`
     can fly: ${myDrone.fly().isFlying() == true}
@@ -78,3 +79,6 @@ console.log(`
     battery drained: ${myDrone.draw(75).getCharge()}`);
 console.log(`
     constructor linked: ${myDrone.constructor == createDrone}`);
+
+// todo: add factories vs classes examples(following this part:
+//  https://medium.com/javascript-scene/why-composition-is-harder-with-classes-c3e627dcd0aa)

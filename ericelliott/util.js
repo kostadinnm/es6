@@ -90,6 +90,7 @@ function pipe(...fns) {
 
 function withConstructor(constructor, ...obj) {
     return myUtil.curry(function(c, o) {
+        // todo: dig in Object.getPrototypeOf() and Object.create()
         const proto = Object.assign({}, Object.getPrototypeOf(o), { constructor: c });
         return Object.assign(Object.create(proto), o);
     })(constructor)(...obj);
