@@ -25,7 +25,7 @@ function reduce(reducer, initial, arr) {
 // pointed functor(credits: https://medium.com/@dmitri145/to-functor-or-not-to-functor-43c46c72145c):
 function pointedFunctor(value) {
     return {
-        //looks like specifying a constructor takes precedence in the range factory(pointedFunctorRange)
+        //looks like specifying a constructor takes precedence in the range factory(constructRange)
         constructor: pointedFunctor,
         map(fn) {
             return pointedFunctor(fn(value));
@@ -88,4 +88,12 @@ function pipe(...fns) {
     };
 }
 
-export default Object.assign(myUtil, { reduce, curry, pointedFunctor, constructRange, pipe });
+function withConstructor(constructor, ...obj) {
+    return myUtil.curry(function(c, o) {
+        // todo: dig in Object.getPrototypeOf() and Object.create()
+        const proto = Object.assign({}, Object.getPrototypeOf(o), { constructor: c });
+        return Object.assign(Object.create(proto), o);
+    })(constructor)(...obj);
+}
+
+export default Object.assign(myUtil, { reduce, curry, pointedFunctor, constructRange, pipe, withConstructor });
