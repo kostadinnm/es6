@@ -1,5 +1,5 @@
 import test from "ava";
-// import { m$, $, in$ } from "./moneysafe.js";
+import { m$, $, in$ } from "./moneysafe.js";
 
 test("should return money with .valueOf() in cents", function(t) {
     const actual = $(10).valueOf();
@@ -141,6 +141,7 @@ test("should return deserialized money object", function(t) {
     // const actual4 = $.parse("ẟ1000")
 });
 
+//this passes since the lib isn't ready yet
 test("should throw error on invalid money format", function(t) {
     t.throws(function() {
         $.parse("100 USD");

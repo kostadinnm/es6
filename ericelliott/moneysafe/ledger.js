@@ -6,4 +6,4 @@ function $$() {}
 function addPercent() {}
 function subtractPercent() {}
 
-export default Object.assing(myLedger, { $$, subtractPercent, addPercent });
+export default Object.assign(myLedger, { $$, subtractPercent, addPercent });
