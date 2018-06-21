@@ -1,5 +1,7 @@
 import test from "ava";
-import { m$, $, in$ } from "./moneysafe.js";
+// import { m$, $, in$ } from "./moneysafe.js";
+import { myMoneysafe } from "./moneysafe.js";
+const $ = myMoneysafe.$, m$ = myMoneysafe.m$, in$ = myMoneysafe.in$;
 
 test("should return money with .valueOf() in cents", function(t) {
     const actual = $(10).valueOf();
