@@ -1,7 +1,9 @@
 import test from "ava";
 // import { m$, $, in$ } from "./moneysafe.js";
 import { myMoneysafe } from "./moneysafe.js";
-const $ = myMoneysafe.$, m$ = myMoneysafe.m$, in$ = myMoneysafe.in$;
+const $ = myMoneysafe.$,
+    m$ = myMoneysafe.m$,
+    in$ = myMoneysafe.in$;
 
 test("should return money with .valueOf() in cents", function(t) {
     const actual = $(10).valueOf();
@@ -122,10 +124,9 @@ test("should return JSON representation of the value", function(t) {
     t.is(actual, expected);
 });
 
-// watch out: stringify may not need the key quot marks or return double quotes
 test("should return JSON representation of an object containing money object", function(t) {
     const actual = JSON.stringify({ money: $(10.1) });
-    const expected = "{'money': '$10.10'}";
+    const expected = '{"money":"$10.10"}';
     t.is(actual, expected);
 });
 
@@ -138,16 +139,21 @@ test("should return deserialized money object", function(t) {
     const expected2 = "$65.00";
     t.is(actual2, expected2);
 
-    // todo:
-    // const actual3 = $.parse("E115.26")
-    // const actual4 = $.parse("ẟ1000")
+    const actual3 = $.parse("€115.26").toString();
+    const expected3 = "€115.26";
+    t.is(actual3, expected3);
+
+    const actual4 = $.parse("💰1000").toString();
+    const expected4 = "💰1000.00";
+    t.is(actual4, expected4);
 });
 
-//this passes since the lib isn't ready yet
 test("should throw error on invalid money format", function(t) {
-    t.throws(function() {
+    const err = t.throws(function() {
         $.parse("100 USD");
+        // throw new TypeError();
     }, Error);
+    t.true(err instanceof TypeError);
 });
 
 test("should return string with custom currency symbol", function(t) {
