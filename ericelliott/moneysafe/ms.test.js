@@ -150,8 +150,7 @@ test("should return deserialized money object", function(t) {
 
 test("should throw error on invalid money format", function(t) {
     const err = t.throws(function() {
-        $.parse("100 USD");
-        // throw new TypeError();
+        $.parse("some 100 USD");// throws a TypeError
     }, Error);
     t.true(err instanceof TypeError);
 });
@@ -160,6 +159,13 @@ test("should return string with custom currency symbol", function(t) {
     const p = m$({ symbol: "#" });
     const actual = p(10.1).toString();
     const expected = "#10.10";
+    t.is(actual, expected);
+});
+
+test("should return suffixed string", function (t) {
+    const lv = m$({ prefixed: false, symbol: " лв"});
+    const actual = lv(10.1).toString();
+    const expected = "10.10 лв";
     t.is(actual, expected);
 });
 

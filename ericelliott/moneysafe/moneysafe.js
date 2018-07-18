@@ -1,7 +1,7 @@
 export function myMoneysafe() {
     return "Util for manipulating currency values";
 }
-function $(amount, rounder = Math.round, prefix = "$") {
+function $(amount, rounder = Math.round, symbol = "$", prefixed = true) {
     const currency = function(value) {
         return $(amount).add(value);
     };
@@ -26,16 +26,20 @@ function $(amount, rounder = Math.round, prefix = "$") {
             return $(amount - cur.$);
         },
         toString() {
-            return `${prefix}${this.$.toFixed(2)}`;
+            return prefixed ? `${symbol}${this.$.toFixed(2)}` : `${this.$.toFixed(2)}${symbol}`;
         },
         toJSON() {
-            return `${prefix}${this.$.toFixed(2)}`;
+            return prefixed ? `${symbol}${this.$.toFixed(2)}` : `${this.$.toFixed(2)}${symbol}`;
         }
     });
 }
 
-function m$() {}
-function in$() {}
+function m$({ symbol }) {
+    // TODO
+}
+function in$(amount) {
+    return $.cents(amount).$;
+}
 
 Object.assign($, {
     of(cns) {
@@ -47,14 +51,17 @@ Object.assign($, {
         return $(Math.round(cns) / 100.0);
     },
     parse(curText) {
-        // todo: add the suffix implementation
-        const prefMatcher = "^([^\\.\\d-]{1,4})?((-)?\\d+(\\.\\d+)?)$";
-        const prefRegEx = new RegExp(prefMatcher);
-        const match = prefRegEx.exec(curText);
-        if (match) {
+        const matcher = "^([^\\.-\\d]{1,4})?((-)?\\d+(\\.\\d+)?)$|^((-)?\\d+(\\.\\d+)?)([^\\.-\\d]{1,4})?$";
+        const regEx = new RegExp(matcher);
+        const match = regEx.exec(curText);
+        if (match[2]) {
             const prefix = match[1];
             const value = match[2];
             return $(parseFloat(value), Math.round, prefix);
+        } else if (match[5]) {
+            const value = match[5];
+            const suffix = match[8];
+            return $(parseFloat(value), Math.round, suffix, false);
         } else {
             throw new Error();
         }
