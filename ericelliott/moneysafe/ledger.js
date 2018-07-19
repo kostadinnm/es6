@@ -5,7 +5,9 @@ export function myLedger() {
 function $$() {
     // TODO
 }
-function addPercent() {}
+function addPercent() {
+    // TODO
+}
 function subtractPercent() {}
 
 export default Object.assign(myLedger, { $$, subtractPercent, addPercent });
