@@ -7,3 +7,5 @@ node_modules
 .jslintrc
 yarn.lock
 package.json
+package-lock.json
+.DS_Store

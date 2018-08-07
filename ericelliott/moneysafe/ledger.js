@@ -2,8 +2,12 @@ export function myLedger() {
     return "Helper util for manipulating currency values";
 }
 
-function $$() {}
-function addPercent() {}
+function $$() {
+    // TODO
+}
+function addPercent() {
+    // TODO
+}
 function subtractPercent() {}
 
-export default Object.assing(myLedger, { $$, subtractPercent, addPercent });
+export default Object.assign(myLedger, { $$, subtractPercent, addPercent });
