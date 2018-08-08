@@ -1,3 +1,5 @@
+import { myUtil } from "../util.js";
+
 export function myMoneysafe() {
     return "Util for manipulating currency values";
 }
@@ -34,9 +36,12 @@ function $(amount, rounder = Math.round, symbol = "$", prefixed = true) {
     });
 }
 
-function m$({ symbol }) {
-    // TODO
+function m$({ symbol, prefixed = true }) {
+    return myUtil.curry(function(amount, rounder = Math.round) {
+        return $(amount, rounder, symbol, prefixed);
+    });
 }
+
 function in$(amount) {
     return $.cents(amount).$;
 }
