@@ -1,7 +1,10 @@
 import test from "ava";
-//import { m$ } from "./moneysafe.js"; const $ = m$();
-import { $ } from "./moneysafe.js";
-import { $$, subtractPercent, addPercent } from "./ledger.js";
+import { myMoneysafe } from "./moneysafe.js";
+import { myLedger } from "./ledger.js";
+const $ = myMoneysafe.$;
+const $$ = myLedger.$$,
+    subtractPercent = myLedger.subtractPercent,
+    addPercent = myLedger.addPercent;
 
 test("should total $(x) amounts", function(t) {
     const actual = $$($(40), $(60), $(-5)).$;
