@@ -24,7 +24,7 @@ function toThePowerOfTwo(x) {
     return x * x;
 }
 console.log(arrFunctr.map(addOne).map(toThePowerOfTwo));
-// todo: use compose-fuction(morphism) from reduce.js
+// todo: use compose-function(morphism) from reduce.js
 console.log(
     arrFunctr.map(function(x) {
         return toThePowerOfTwo(addOne(x));
