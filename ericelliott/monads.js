@@ -39,7 +39,8 @@ const authUser = compose(
 // always false:
 authUser(3).then(trace(label));
 
-function composeM(method) {
+// monadic higher-order function, which is (forced to get) initialized with flattening method
+const composeM = function(method) {
     return function(...ms) {
         return myUtil.reduce(
             myUtil.curry(function(f, g, x) {
