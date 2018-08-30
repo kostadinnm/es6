@@ -50,7 +50,7 @@ const composeM = function(method) {
             ms
         );
     };
-}
+};
 
 const composePromises = composeM("then");
 const userAuth = composePromises(hasPermission, getUserById);
