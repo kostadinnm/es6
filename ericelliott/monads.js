@@ -23,6 +23,7 @@ const trace = myUtil.curry(function(label, value) {
 const label = "API call composition";
 // a -> Promise(b)
 function getUserById(id) {
+    console.log(id);
     return id == 3 ? Promise.resolve({ name: "Kurt", role: "Author" }) : undefined;
 }
 // b -> Promise(c)
@@ -38,18 +39,17 @@ const authUser = compose(
 // always false:
 authUser(3).then(trace(label));
 
-// const composeM = function(method) {
-//     return function(...fns) {
-//         return fns.reduce(
-//             function(f, g) {
-//                 return function(x) {
-//                     return g(x)[method](f);
-//                 }
-//             }
-//         });
-//     };
-// };
-
+function composeM(method) {
+    return function(...ms) {
+        return myUtil.reduce(
+            myUtil.curry(function(f, g, x) {
+                return g(x)[method](f);
+            }),
+            [],
+            ms
+        );
+    };
+}
 
 const composePromises = composeM("then");
 const userAuth = composePromises(hasPermission, getUserById);
