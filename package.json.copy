@@ -1,0 +1,32 @@
+{
+    "license": "UNLICENSED",
+    "scripts": {
+        "test": "ava ./ericelliott/moneysafe/ms.test.js -w",
+        "testM": "ava ./ericelliott/moneysafe/ms.test.js",
+        "testL": "ava ./ericelliott/moneysafe/lg.test.js"
+    }
+    "dependencies": {
+        "lodash-es": "latest",
+        "moneysafe": "latest"
+    },
+    "devDependencies": {
+        
+        "babel-cli": "^6.26.0",
+        "eslint": "^4.17.0",
+        "eslint-plugin-myplugin": "./myeslint",
+        "eslint-plugin-promise": "^3.6.0",
+
+        "prettier": "^1.14.3",
+        "ava":"latest",
+        "esm": "^3.0.51"
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "printWidth": 120
+    },
+    "ava": {
+        "require": [
+            "esm"
+        ]
+    }
+}
