@@ -1,3 +1,5 @@
+import { myUtil } from "../util.js";
+
 export function myMoneysafe() {
     return "Util for manipulating currency values";
 }
@@ -34,9 +36,12 @@ function $(amount, rounder = Math.round, symbol = "$", prefixed = true) {
     });
 }
 
-function m$({ symbol }) {
-    // TODO
+function m$({ symbol, prefixed = true }) {
+    return myUtil.curry(function(amount, rounder = Math.round) {
+        return $(amount, rounder, symbol, prefixed);
+    });
 }
+
 function in$(amount) {
     return $.cents(amount).$;
 }
@@ -54,16 +59,20 @@ Object.assign($, {
         const matcher = "^([^\\.-\\d]{1,4})?((-)?\\d+(\\.\\d+)?)$|^((-)?\\d+(\\.\\d+)?)([^\\.-\\d]{1,4})?$";
         const regEx = new RegExp(matcher);
         const match = regEx.exec(curText);
-        if (match[2]) {
-            const prefix = match[1];
-            const value = match[2];
-            return $(parseFloat(value), Math.round, prefix);
-        } else if (match[5]) {
-            const value = match[5];
-            const suffix = match[8];
-            return $(parseFloat(value), Math.round, suffix, false);
+        if (match) {
+            if (match[2]) {
+                const prefix = match[1];
+                const value = match[2];
+                return $(parseFloat(value), Math.round, prefix);
+            } else if (match[5]) {
+                const value = match[5];
+                const suffix = match[8];
+                return $(parseFloat(value), Math.round, suffix, false);
+            } else {
+                throw new Error("Unable to parse expression to a currency value");
+            }
         } else {
-            throw new Error();
+            throw new TypeError("expression is not a currency value");
         }
     }
 });

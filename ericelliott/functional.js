@@ -13,7 +13,7 @@ const { blop: bloop } = blep;
 console.log("bloop: " + bloop);
 
 const curryArrow = (f, arr = []) => (...args) =>
-    (a => (a.length === f.length ? f(...a) : curryArrow(f, a)))([...arr, ...args]);
+    (a => (a.length == f.length ? f(...a) : curryArrow(f, a)))([...arr, ...args]);
 const addThree = curryArrow((a, b, c) => a + b + c);
 console.log(addThree(1, 2, 3));
 console.log(addThree(1)(2, 3));

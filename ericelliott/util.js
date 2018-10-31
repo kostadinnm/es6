@@ -6,7 +6,7 @@ export function myUtil() {
 function curry(f, argsHead = []) {
     return function(...argsTail) {
         return (function(args) {
-            return args.length === f.length ? f(...args) : curry(f, args);
+            return args.length == f.length ? f(...args) : curry(f, args);
         })([...argsHead, ...argsTail]);
     };
 }
@@ -65,7 +65,7 @@ Object.assign(pointedFunctor, {
         return "pointedFunctr";
     },
     is(x) {
-        return typeof x.map === "function";
+        return typeof x.map == "function";
     }
 });
 

@@ -182,7 +182,7 @@ s6 = sumES6(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 console.log(s6);
 
 let arr = ["one", "two", "three"];
-//the same '...'-expression conversts an array into comma-separated list of args:
+//the same '...'-expression converts an array into comma-separated list of args:
 console.log(...arr);
 //in use for array concatenation:
 let arr1 = ["one", "two"];
