@@ -1,7 +1,7 @@
 // prepending local namespace for name-collision situations:
 // import * as methods from "./lib.js";
 
-// renaming - useful for simpler utils:
+// naming - useful for simpler utils:
 import methodz from "./lib.js";
 
 // destructuring - useful for complex entities:
@@ -14,13 +14,14 @@ import methodz from "./lib.js";
 //     console.log(methsNS.default);
 // });
 
+// TREE SHAKING(kindof):
 import * as units from "./lib2.js";
 const { methodUnit, methodUnit2 } = units.default;
 
 // MODULE:
 // console.log(methods);
 // OBJECT:
-console.log("Utils imported: " + methodz);
+console.log("Utils: " + methodz);
 // FUNCTION:
 // console.log("Lib imported: " + methodNS);
 
