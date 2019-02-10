@@ -87,6 +87,17 @@ function pipe(...fns) {
         );
     };
 }
+function asyncPipe(...fns) {
+    return function(x) {
+        return reduce(
+            function(acc, f) {
+                return acc.then(f);
+            },
+            Promise.resolve(x),
+            fns
+        );
+    };
+}
 
 function withConstructor(constructor, ...obj) {
     return curry(function(c, o) {
@@ -96,4 +107,12 @@ function withConstructor(constructor, ...obj) {
     })(constructor)(...obj);
 }
 
-export default Object.assign(myUtil, { reduce, curry, pointedFunctor, constructRange, pipe, withConstructor });
+export default Object.assign(myUtil, {
+    reduce,
+    curry,
+    pointedFunctor,
+    constructRange,
+    pipe,
+    asyncPipe,
+    withConstructor
+});
